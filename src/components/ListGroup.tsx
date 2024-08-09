@@ -1,17 +1,17 @@
 import { MouseEvent, useState } from "react";
 
-function ListGroup() {
-  const items = ["spaghetti", "soup", "hamburger", "potato"];
+interface Props {
+  items: string[];
+  heading: string;
+  onSelectItem: (item: string) => void;
+}
 
+function ListGroup({ items, heading, onSelectItem }: Props) {
   const [selectedIdx, setSelectedIdx] = useState(-1);
-
-  //   const handClick = (event: MouseEvent) => {
-  //     console.log(event);
-  //   };
 
   return (
     <>
-      <h1>My List</h1>
+      <h1>{heading}</h1>
       {!items.length && <p>no items found</p>}
       <ul className="list-group">
         {items.map((e, i) => (
@@ -22,6 +22,7 @@ function ListGroup() {
             key={e}
             onClick={() => {
               setSelectedIdx(i);
+              onSelectItem(e);
             }}
           >
             {`${i + 1}.) ${e}`}
@@ -31,4 +32,5 @@ function ListGroup() {
     </>
   );
 }
+
 export default ListGroup;
